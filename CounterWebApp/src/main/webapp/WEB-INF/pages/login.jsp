@@ -12,10 +12,10 @@
 </head>
 <body>
  
-<form:form method="post" action="create" id="signin">
+<form:form method="post" action="Users.htm" id="signin">
     <fieldset>
         <legend>Welcome Please Login</legend>
-    </fieldset>
+    
     <c:if test="${not empty error}">
     	<div class="error">${error}</div>
     </c:if>
@@ -38,7 +38,7 @@
    
      <input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />
-   
+   </fieldset>
  </form:form>
 </body>
 </html>

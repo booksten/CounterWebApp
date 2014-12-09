@@ -1,37 +1,49 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	http://www.springframework.org/schema/security
-	http://www.springframework.org/schema/security/spring-security-3.0.3.xsd">
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+	<http pattern="/login.htm*" security="none" />
+	<http pattern="/js/*" security="none"/>
+	<http pattern="/css/*" security="none"/>
+	<http pattern="/images/*" security="none"/>   
+	<http pattern="/loginfailed.htm" security="none" />	
 	<http auto-config="true">
-	    <intercept-url pattern="/login.htm*" filters="none"/>
-	    <intercept-url pattern="/js/*" filters="none"/>
-	    <intercept-url pattern="/css/*" filters="none"/>
-	    <intercept-url pattern="/images/*" filters="none"/>
-	    <intercept-url pattern="/loginfailed.htm" filters="none" />
-	    <form-login login-page="/login.htm" default-target-url="/welcome.htm" 
-			authentication-failure-url="/loginfailed.htm" 
-			always-use-default-target="true" 
-			username-parameter="username"
-			password-parameter="password"/>
-	    
-		<logout invalidate-session="true" logout-success-url="/logout.htm" /> 
+	    	<form-login login-page="/login.htm" 
+	    		default-target-url="/welcome.htm" 
+	    	    authentication-failure-url="/loginfailed.htm" 
+	    	    always-use-default-target="true" />
+		    <logout invalidate-session="true" logout-success-url="/logout.htm" />	
+		    <remember-me user-service-ref="userDetailsService"/>
+		    
+		    <session-management>
+	          <concurrency-control max-sessions="1" session-registry-alias="sessionRegistry"/>
+	        </session-management>
+	      	<intercept-url pattern="/**" access="isAuthenticated()"/>
 	</http>
 
+	<beans:bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="userDetailsService" />
+	</beans:bean>
+	
+	<beans:bean id="authenticationManager"
+		class="org.springframework.security.authentication.ProviderManager">
+		<beans:property name="providers">
+			<beans:list>
+				<beans:ref local="daoAuthenticationProvider" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="CustomSuccessHandler"
+	    class="com.aalvarez.utils.CustomSuccessHandler"> 
+	</beans:bean>
+	
 	<authentication-manager>
-	  <authentication-provider>
-	    <user-service>
-		<user name="mkyong" password="123456" authorities="ROLE_USER" />
-	    </user-service>
-	  </authentication-provider>
-	</authentication-manager>
-	
-<!-- 	<authentication-manager> -->
-<!-- 		<authentication-provider user-service-ref="userDetailsService"> -->
+		<authentication-provider user-service-ref="userDetailsService">
 <!-- 			<password-encoder hash="md5" /> -->
-<!-- 		</authentication-provider> -->
-<!-- 	</authentication-manager> -->
-	
+		</authentication-provider>
+	</authentication-manager>
 </beans:beans>

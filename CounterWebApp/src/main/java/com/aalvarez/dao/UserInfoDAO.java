@@ -21,4 +21,14 @@ public class UserInfoDAO extends EntityDAO<TSM_UserInfo> {
 			return null;
 		}
 	}
+	
+	public TSM_UserInfo getEmployeeByEmailOrUserName(String emailOrUserName) {
+		Query query = getEntityManager().createQuery("Select e from TSM_UserInfo e where lower(e.userName) = lower(:emailOrUserName)");
+		query.setParameter("emailOrUserName", emailOrUserName);
+		try {
+			return (TSM_UserInfo) query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }

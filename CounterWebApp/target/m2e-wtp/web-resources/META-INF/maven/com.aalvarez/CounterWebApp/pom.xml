@@ -7,8 +7,22 @@
   <version>1.0-SNAPSHOT</version>
   <name>CounterWebApp Maven Webapp</name>
   <url>http://maven.apache.org</url>
+ 
+  <build>
+    <finalName>CounterWebApp</finalName>
+    <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+  </build>
   <properties>
-		<spring.version>3.1.3.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<jdk.version>1.6</jdk.version>
 		<hibernate.version>3.5.6-Final</hibernate.version>
@@ -20,38 +34,40 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
+			<version>3.2.5.RELEASE</version>
 		</dependency>
  
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
+			<version>3.2.5.RELEASE</version>
 		</dependency>
  
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
+			<version>3.2.5.RELEASE</version>
 		</dependency>
  		
- 				<dependency>
+ 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>${spring.version}</version>
+			<version>3.2.5.RELEASE</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>${spring.version}</version>
+			<version>3.2.5.RELEASE</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${spring.version}</version>
+			<version>3.2.5.RELEASE</version>
 		</dependency>
+		
+		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -100,6 +116,7 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.4.1</version>
 		</dependency>
+		
 		<!-- My SQL Connector -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -138,25 +155,20 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.5.8</version>
 		</dependency>
-		
 
-		
+
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>3.0.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openid4java</groupId>
+			<artifactId>openid4java</artifactId>
+			<version>0.9.7</version>
+		</dependency>
 	</dependencies>
-  <build>
-    <finalName>CounterWebApp</finalName>
-    <plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
-			</plugin>
-		</plugins>
-  </build>
-  
 
   
 </project>

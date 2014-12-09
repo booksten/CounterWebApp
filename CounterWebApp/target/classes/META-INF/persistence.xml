@@ -11,6 +11,7 @@
 		<class>com.aalvarez.domain.TSM_Person</class>
 		<class>com.aalvarez.domain.TrackDomainsChanges</class>
 		<class>com.aalvarez.domain.TSM_UserInfo</class>
+		<class>com.aalvarez.domain.TSM_Roles</class>
 		<properties>
  		<!-- Database connection settings -->
         	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

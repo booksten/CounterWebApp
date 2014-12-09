@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import com.aalvarez.dao.PersonDAO;
 import com.aalvarez.dao.UserInfoDAO;
@@ -38,8 +39,7 @@ public class BaseController {
 		for(TSM_Person tsmper : tsmperson){
 			Person per = new Person();
 			Util.setPersonData(per, tsmper);
-			personlist.add(per);
-			System.out.println(per.getFirstName() + " " + per.getLastName());	
+			personlist.add(per);	
 		}
 		request.setAttribute("persons", personlist );
 		//Spring uses InternalResourceViewResolver and return back index.jsp
@@ -76,7 +76,7 @@ public class BaseController {
 			Person per = new Person();
 			Util.setPersonData(per, tsmper);
 			personlist.add(per);
-		}	
+		}
 		return personlist;
 	}
 	
@@ -89,7 +89,7 @@ public class BaseController {
 		PersonDAO.instance.save(tsmPerson);
 		
 		TSM_UserInfo tsmUI = new TSM_UserInfo();
-		tsmUI.setUserName(tsmPerson.getFirstName().toLowerCase()+"."+tsmPerson.getLastName().toLowerCase());
+		tsmUI.setUsername(tsmPerson.getFirstName().toLowerCase()+"."+tsmPerson.getLastName().toLowerCase());
 		tsmUI.setPassword(tsmPerson.getLastName().toLowerCase());
 		tsmUI.setId(tsmPerson.getId());
 		UserInfoDAO.instance.save(tsmUI);
